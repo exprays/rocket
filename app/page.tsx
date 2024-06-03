@@ -30,7 +30,7 @@ useEffect(() => {
    <div>
      <input value={input} onChange={(e) => {
       setinput(e.target.value)
-     }} type="text" />
+     }} type="text" className="text-zinc-700" />
    </div>
   );
 }
