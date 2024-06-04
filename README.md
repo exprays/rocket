@@ -12,7 +12,7 @@ It uses distriuted databases and cloudflare workers to provide superfast query m
 
 #### Get all items
 
-```http
+```bash
   GET /api/search?query=
 ```
 
