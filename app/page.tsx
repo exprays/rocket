@@ -15,7 +15,7 @@ export default function Home() {
       if (!input) return setSearchResults(undefined);
 
       // api call
-      const res = await fetch(`/api/search?query=${input}`);
+      const res = await fetch(`https://rocket.subudhisuryakant.workers.dev/api/search?query=${input}`);
       // handle response
 
       //get data
