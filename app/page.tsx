@@ -1,5 +1,6 @@
 "use client";
 
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -16,6 +17,14 @@ export default function Home() {
       // api call
       const res = await fetch(`/api/search?query=${input}`);
       // handle response
+
+      //get data
+      const data = (await res.json()) as {
+        results: string[];
+        duration: number;
+      };
+
+      setSearchResults(data);
     };
 
     fetchData();
@@ -30,14 +39,42 @@ export default function Home() {
         <p className="text-zinc-600 text-lg max-w-prose text-center">
           A high-performance, lightning-fast API bulit with Hono, Next.js and Clouldflare.
         </p>
-        <input
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-          type="text"
-          className="text-zinc-700"
-        />
+
+        <div className="max-w-md w-full">
+          <Command>
+            <CommandInput 
+              value={input}
+              onValueChange={setInput}
+              placeholder="Search countries...."
+              className="placeholder:text-zinc-500"
+            />
+            <CommandList>
+              {searchResults?.results.length === 0 ? (
+                <CommandEmpty>No results.</CommandEmpty>
+              ) : null}
+
+              {searchResults?.results ? (
+                <CommandGroup heading="Results">
+                  {searchResults?.results.map((result) => (
+                    <CommandItem key={result} value={result} onSelect={setInput}>
+                      {result}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              ) : null}
+
+              {/** display timing */}
+              {searchResults?.results ? (
+                <>
+                  <div className="h-px w-full bg-zinc-200"/>
+                  <p className="p-2 text-xs text-zinc-500">
+                    Found {searchResults.results.length} results in {searchResults?.duration.toFixed(0)}ms
+                  </p>
+                </>
+              ) : null}
+            </CommandList>
+          </Command>
+        </div>
       </div>
     </main>
   );
