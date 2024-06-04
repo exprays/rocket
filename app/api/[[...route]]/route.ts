@@ -2,11 +2,14 @@ import { EnvConfig } from "@/types/config";
 import { Redis } from "@upstash/redis/cloudflare";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
+import { cors } from "hono/cors";
 import { handle } from "hono/vercel";
 
 export const runtime = "edge";
 
 const app = new Hono().basePath("/api");
+
+app.use("/*", cors());
 
 app.get("/search", async (c) => {
 
