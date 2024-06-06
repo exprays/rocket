@@ -2,6 +2,7 @@
 
 import { PostgresIcon } from "@/components/icons/postgres";
 import { RedisIcon } from "@/components/icons/redis";
+import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useEffect, useState } from "react";
 
@@ -11,13 +12,14 @@ export default function Home() {
     results: string[];
     duration: number;
   }>();
+  const [source, setSource] = useState("redis");
 
   useEffect(() => {
     const fetchData = async () => {
       if (!input) return setSearchResults(undefined);
 
       // api call
-      const res = await fetch(`https://rocket.subudhisuryakant.workers.dev/api/search?query=${input}`);
+      const res = await fetch(`https://rocket.subudhisuryakant.workers.dev/api/search?query=${input}&source=${source}`);
       // handle response
 
       //get data
@@ -30,7 +32,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, [input]);
+  }, [input, source]);
 
   return (
     <main className="h-screen w-screen grainy">
@@ -78,15 +80,28 @@ export default function Home() {
           </Command>
         </div>
         {/**icons */}
+        <p className="text-zinc-400 font-semibold text-sm ">Change adapter</p>
         <div className="flex gap-x-4">
-          <button className="out">
-            <RedisIcon width={40} height={40}/>
-          </button>
-          <button>
-            <PostgresIcon width={40} height={40}/>
-          </button>
+        <Button 
+            variant={source === "redis" ?  "outline" : "secondary" } 
+            size="icon" 
+            className="outline-none"
+            onClick={() => setSource("redis")}
+          >
+            <RedisIcon width={30} height={30} />
+          </Button>
+          <Button 
+            variant={source === "postgres" ? "outline" : "secondary"} 
+            size="icon" 
+            className="outline-none"
+            onClick={() => setSource("postgres")}
+          >
+            <PostgresIcon width={30} height={30} />
+          </Button>
+
         </div>
       </div>
     </main>
   );
 }
+
