@@ -1,5 +1,7 @@
 "use client";
 
+import { PostgresIcon } from "@/components/icons/postgres";
+import { RedisIcon } from "@/components/icons/redis";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useEffect, useState } from "react";
 
@@ -74,6 +76,15 @@ export default function Home() {
               ) : null}
             </CommandList>
           </Command>
+        </div>
+        {/**icons */}
+        <div className="flex gap-x-4">
+          <button className="out">
+            <RedisIcon width={40} height={40}/>
+          </button>
+          <button>
+            <PostgresIcon width={40} height={40}/>
+          </button>
         </div>
       </div>
     </main>
