@@ -41,7 +41,7 @@ export default function Home() {
           Rocket 🚀
         </h1>
         <p className="text-zinc-600 text-lg max-w-prose text-center">
-          A high-performance, lightning-fast API bulit with Hono, Next.js and Clouldflare.
+          A high-performance, lightning-fast API bulit with Hono, Next.js and Cloudflare.
         </p>
 
         <div className="max-w-md w-full">
